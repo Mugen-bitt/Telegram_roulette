@@ -39,4 +39,4 @@ bot.on('text', (ctx) => {
 
 // Запуск бота
 bot.launch();
-console.log('Бот запущен!')});
+console.log('Бот запущен!')})
