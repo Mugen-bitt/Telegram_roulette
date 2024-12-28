@@ -1,7 +1,7 @@
 const { Telegraf } = require('telegraf');
 
 // Укажите токен вашего бота
-const bot = new Telegraf('<Ваш_Token>');
+const bot = new Telegraf('7932492596:AAGSqGbzYKs3_tInoDWrXGwNbNcLcNw0MzA');
 
 // Команда /start
 bot.start((ctx) => {
