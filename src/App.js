@@ -34,7 +34,7 @@ const App = () => {
 
       //Пример: отправка данных обратно в Telegram
       WebApp.sendData('Привет от Павла сучара!');
-      
+
       if (isTelegramWebApp) {
         document.body.style.backgroundColor = WebApp.backgroundColor;
         document.body.style.color = WebApp.themeParams?.text_color || '#000000';
@@ -68,7 +68,7 @@ const App = () => {
         try {
           if (isTelegramWebApp && WebApp.showPopup) {
             WebApp.showPopup({
-              message: `Ваш выбор на сегодня: ${finalResult}`,
+              message: `Твой выбор на сегодня: ${finalResult}`,
               buttons: [
                 { id: "ok", type: "ok", text: "Отлично!" }
               ]
