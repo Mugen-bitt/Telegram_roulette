@@ -1,7 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 
 // Вставьте API-ключ, выданный @BotFather
-const token = '8081847420:AAF9PoKw0TNZvtSXH-hBISTYWaw7LA2WT2I';
+const token = '8026412974:AAFYCxtlWNLU65_tyWNJQV6ImLbuP-7u0_w';
 
 // Создаем бота с поддержкой "polling"
 const bot = new TelegramBot(token, { polling: true });
