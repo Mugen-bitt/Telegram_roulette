@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import WebApp from '@twa-dev/sdk';
+// eslint-disable-next-line no-unused-vars
 import connectTelegramWallet from "./walletconnect";
 
 const actions = [
