@@ -33,7 +33,7 @@ const App = () => {
       console.log('Данные пользователя:', user);
 
       //Пример: отправка данных обратно в Telegram
-      WebApp.sendData('Привет от Павла сучара!');
+      WebApp.sendData('Привет от Mugena сучара!');
 
       if (isTelegramWebApp) {
         document.body.style.backgroundColor = WebApp.backgroundColor;
@@ -130,7 +130,7 @@ const App = () => {
           transition: "transform 1.5s cubic-bezier(0.2, 0.8, 0.3, 1)",
           opacity: isSpinning ? 0.5 : 1
         }}>
-          {result || "Нажми кнопку"}
+          {result || ""}
         </p>
       </div>
 
