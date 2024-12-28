@@ -4,13 +4,14 @@ const { Telegraf } = require('telegraf');
 const bot = new Telegraf('7932492596:AAGSqGbzYKs3_tInoDWrXGwNbNcLcNw0MzA');
 
 // Команда /start
-bot.command('start',(ctx) => {
+bot.start((ctx) => {
+    ctx.reply('Привет! Я ваш первый бот 🚀');
     ctx.reply('Запустите приложение, нажав кнопку ниже:', {
         reply_markup: {
         inline_keyboard: [
               [
                 {
-                  text: 'Открыть',
+                  text: 'Открыть Web App',
                   web_app: { url: 'https://mugen-bitt.github.io/Telegram_roulette/' }
                 }
               ]
@@ -26,7 +27,7 @@ bot.help((ctx) => {
 
 bot.on('web_app_data', (ctx) => {
     const receivedData = ctx.message.web_app_data.data;
-    console.log('Данные из Web App', receivedData);
+    console.log('Данные из Web App', receivedData)
 
 // Ответ пользователю
     ctx.reply(`Вы Отправили: ${receivedData}`);
