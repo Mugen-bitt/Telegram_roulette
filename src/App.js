@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import WebApp from '@twa-dev/sdk';
+import connectTelegramWallet from "./walletconnect";
 
 const actions = [
   "Пойти в спортзал",
