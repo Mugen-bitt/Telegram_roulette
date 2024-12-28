@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import WebApp from '@twa-dev/sdk';
-import connectTelegramWallet from "./walletconnect";
 
 const actions = [
   "Пойти в спортзал",
@@ -80,17 +79,6 @@ const App = () => {
     }
   };
 
-  const handleConnect = async () => {
-    try {
-      const session = await connectTelegramWallet();
-      console.log("Wallet connected:", session);
-      alert("Кошелек успешно подключен!");
-    } catch (error) {
-      console.error("Error connecting wallet:", error);
-      alert("Ошибка подключения кошелька!");
-    }
-  };
-
   return (
     <div style={{
       display: "flex",
@@ -157,23 +145,6 @@ const App = () => {
         onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
       >
         {isSpinning ? "Крутится..." : "Крутить"}
-      </button>
-
-      <button
-        onClick={handleConnect}
-        style={{
-          marginTop: "20px",
-          backgroundColor: getThemeColor('button_color', '#28a745'),
-          color: "#ffffff",
-          border: "none",
-          borderRadius: "10px",
-          padding: "10px 20px",
-          fontSize: "16px",
-          cursor: "pointer",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
-        }}
-      >
-        Подключить Telegram Wallet
       </button>
     </div>
   );
