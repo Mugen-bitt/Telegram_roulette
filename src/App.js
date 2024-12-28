@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import WebApp from '@twa-dev/sdk';
-// eslint-disable-next-line no-unused-vars
 import connectTelegramWallet from "./walletconnect";
 
 const actions = [
@@ -28,7 +27,6 @@ const App = () => {
   useEffect(() => {
     try {
       WebApp.ready();
-      // Применяем тему Telegram только если это Telegram Web App
       if (isTelegramWebApp) {
         document.body.style.backgroundColor = WebApp.backgroundColor;
         document.body.style.color = WebApp.themeParams?.text_color || '#000000';
@@ -40,26 +38,24 @@ const App = () => {
 
   const spinWheel = () => {
     if (isSpinning) return;
-    
+
     setIsSpinning(true);
     const newRotation = rotation + 1800 + Math.random() * 360;
     setRotation(newRotation);
 
-    // Анимация перебора вариантов
     let count = 0;
     const interval = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * actions.length);
       setResult(actions[randomIndex]);
       count++;
-      
+
       if (count >= 20) {
         clearInterval(interval);
         const finalIndex = Math.floor(Math.random() * actions.length);
         const finalResult = actions[finalIndex];
         setResult(finalResult);
         setIsSpinning(false);
-        
-        // Показываем результат в Telegram только если это Telegram Web App
+
         try {
           if (isTelegramWebApp && WebApp.showPopup) {
             WebApp.showPopup({
@@ -76,12 +72,22 @@ const App = () => {
     }, 100);
   };
 
-  // Получаем цвета в зависимости от среды выполнения
   const getThemeColor = (telegramColor, defaultColor) => {
     try {
       return isTelegramWebApp ? WebApp.themeParams?.[telegramColor] || defaultColor : defaultColor;
     } catch {
       return defaultColor;
+    }
+  };
+
+  const handleConnect = async () => {
+    try {
+      const session = await connectTelegramWallet();
+      console.log("Wallet connected:", session);
+      alert("Кошелек успешно подключен!");
+    } catch (error) {
+      console.error("Error connecting wallet:", error);
+      alert("Ошибка подключения кошелька!");
     }
   };
 
@@ -151,6 +157,23 @@ const App = () => {
         onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
       >
         {isSpinning ? "Крутится..." : "Крутить"}
+      </button>
+
+      <button
+        onClick={handleConnect}
+        style={{
+          marginTop: "20px",
+          backgroundColor: getThemeColor('button_color', '#28a745'),
+          color: "#ffffff",
+          border: "none",
+          borderRadius: "10px",
+          padding: "10px 20px",
+          fontSize: "16px",
+          cursor: "pointer",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+        }}
+      >
+        Подключить Telegram Wallet
       </button>
     </div>
   );
