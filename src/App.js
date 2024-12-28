@@ -118,17 +118,34 @@ const App = () => {
         <p style={{
           fontSize: "20px",
           transform: `rotate(${-rotation}deg)`,
-          transition: "transform 1.5s cubic-bezier(0.2, 0.8, 0.3, 1)`,
+          transition: "transform 1.5s cubic-bezier(0.2, 0.8, 0.3, 1)",
           opacity: isSpinning ? 0.5 : 1
         }}>
           {result || "Нажмите кнопку"}
         </p>
       </div>
-
-      <div>
-        <h1>Проверка Web App</h1>
-        <p>Приложение загружено!</p>
-      </div>
+<button
+        onClick={spinWheel}
+        disabled={isSpinning}
+        style={{
+          backgroundColor: getThemeColor('button_color', '#0088cc'),
+          color: "#ffffff",
+          border: "none",
+          borderRadius: "10px",
+          padding: "15px 30px",
+          fontSize: "18px",
+          cursor: isSpinning ? "not-allowed" : "pointer",
+          opacity: isSpinning ? 0.7 : 1,
+          transition: "opacity 0.3s, transform 0.2s",
+          transform: "scale(1)",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+        }}
+        onMouseDown={e => e.currentTarget.style.transform = "scale(0.98)"}
+        onMouseUp={e => e.currentTarget.style.transform = "scale(1)"}
+        onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+      >
+        {isSpinning ? "Крутится..." : "Крутить"}
+      </button>
     </div>
   );
 };
