@@ -25,6 +25,13 @@ bot.help((ctx) => {
     ctx.reply('Я могу:\n/start - начать работу\n/help - помощь');
 });
 
+bot.on('web_app_data', (ctx) => {
+    const receivedData = ctx.message.web_app_data.data;
+    console.log('Данные из Web App', receivedData);
+
+// Ответ пользователю
+    ctx.reply(`Вы Отправили: ${receivedData}`);
+
 // Обработка текста
 bot.on('text', (ctx) => {
     ctx.reply(`Вы написали: ${ctx.message.text}`);
