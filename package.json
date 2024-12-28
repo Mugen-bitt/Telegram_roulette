@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tonconnect/ui-react": "^2.0.9",
     "@twa-dev/sdk": "^8.0.1",
     "cra-template": "1.2.0",
     "node-fetch": "^3.3.2",
