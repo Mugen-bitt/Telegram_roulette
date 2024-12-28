@@ -25,12 +25,22 @@ const App = () => {
 
   useEffect(() => {
     try {
+      //Инициализация WebApp
       WebApp.ready();
+
+      //Получение данных пользователя из Telegram
+      const user = WebApp.initDataUnsafe?.user;
+      console.log('Данные пользователя:', user);
+
+      //Пример: отправка данных обратно в Telegram
+      WebApp.sendData('Привет от Павла сучара!');
+      
       if (isTelegramWebApp) {
         document.body.style.backgroundColor = WebApp.backgroundColor;
         document.body.style.color = WebApp.themeParams?.text_color || '#000000';
       }
     } catch (e) {
+      console.error('Ошибка взаимодействия с Telegram Web App API:', e);
       console.log('Not running in Telegram Web App');
     }
   }, [isTelegramWebApp]);
