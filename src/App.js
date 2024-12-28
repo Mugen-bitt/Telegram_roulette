@@ -130,7 +130,7 @@ const App = () => {
           transition: "transform 1.5s cubic-bezier(0.2, 0.8, 0.3, 1)",
           opacity: isSpinning ? 0.5 : 1
         }}>
-          {result || "Нажмите кнопку"}
+          {result || "Нажми кнопку"}
         </p>
       </div>
 
