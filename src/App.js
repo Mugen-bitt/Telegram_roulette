@@ -97,6 +97,8 @@ const App = () => {
         fontSize: "28px"
       }}>
         Рулетка
+        <h1>Проверка Web App</h1>
+        <p>Приложение загружено!</p>
       </h1>
 
       <div style={{
