@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Mugen-bitt/Telegram_roulette.git/static/css/main.e6c13ad2.css",
-    "main.js": "/Mugen-bitt/Telegram_roulette.git/static/js/main.5a9cd61b.js",
-    "static/js/488.4f3b31f7.chunk.js": "/Mugen-bitt/Telegram_roulette.git/static/js/488.4f3b31f7.chunk.js",
-    "index.html": "/Mugen-bitt/Telegram_roulette.git/index.html",
-    "main.e6c13ad2.css.map": "/Mugen-bitt/Telegram_roulette.git/static/css/main.e6c13ad2.css.map",
-    "main.5a9cd61b.js.map": "/Mugen-bitt/Telegram_roulette.git/static/js/main.5a9cd61b.js.map",
-    "488.4f3b31f7.chunk.js.map": "/Mugen-bitt/Telegram_roulette.git/static/js/488.4f3b31f7.chunk.js.map"
+    "main.css": "/Mugen-bitt/Telegram_roulette/static/css/main.e6c13ad2.css",
+    "main.js": "/Mugen-bitt/Telegram_roulette/static/js/main.a1f6885f.js",
+    "static/js/488.4f3b31f7.chunk.js": "/Mugen-bitt/Telegram_roulette/static/js/488.4f3b31f7.chunk.js",
+    "index.html": "/Mugen-bitt/Telegram_roulette/index.html",
+    "main.e6c13ad2.css.map": "/Mugen-bitt/Telegram_roulette/static/css/main.e6c13ad2.css.map",
+    "main.a1f6885f.js.map": "/Mugen-bitt/Telegram_roulette/static/js/main.a1f6885f.js.map",
+    "488.4f3b31f7.chunk.js.map": "/Mugen-bitt/Telegram_roulette/static/js/488.4f3b31f7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.5a9cd61b.js"
+    "static/js/main.a1f6885f.js"
   ]
 }
