@@ -1,40 +1,35 @@
-import Client from "@walletconnect/client";
+import { Client } from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
 
 const connectTelegramWallet = async () => {
-  try {
-    const client = await Client.init({
-      relayUrl: "wss://relay.walletconnect.com",
-      projectId: "b2556b776adefee3108209ff1e81049b", // Замените на ваш Project ID
-    });
+  const client = new Client({
+    relayUrl: "wss://relay.walletconnect.com",
+    projectId: "your_project_id", // Замените на ваш Project ID
+  });
 
-    const session = await client.connect({
-      metadata: {
-        name: "My Telegram Wallet App",
-        description: "A demo app for connecting Telegram Wallet",
-        url: "https://my-app-url.com",
-        icons: ["https://my-app-url.com/icon.png"],
+  const session = await client.connect({
+    requiredNamespaces: {
+      eip155: {
+        methods: ["eth_sendTransaction", "personal_sign"],
+        chains: ["eip155:1"],
+        events: ["chainChanged", "accountsChanged"],
       },
-      permissions: {
-        blockchain: {
-          chains: ["eip155:1"], // Ethereum mainnet
-        },
-        jsonrpc: {
-          methods: ["eth_sendTransaction", "personal_sign", "eth_signTypedData"],
-        },
-      },
-    });
+    },
+  });
 
-    console.log("Connected session:", session);
+  QRCodeModal.open(session.uri, () => {
+    console.log("QR Code Modal closed");
+  });
 
-    QRCodeModal.open(session.uri, () => {
-      console.log("QR Code Modal closed");
-    });
+  client.on("session_update", (updatedSession) => {
+    console.log("Updated session:", updatedSession);
+  });
 
-    return session;
-  } catch (error) {
-    console.error("WalletConnect error:", error);
-  }
+  client.on("disconnect", () => {
+    console.log("Disconnected");
+  });
+
+  return session;
 };
 
 export default connectTelegramWallet;
