@@ -1,191 +1,86 @@
-
-import React, { useState, useEffect } from "react";
-import WebApp from "@twa-dev/sdk";
-
-const actions = [
-  "Пойти в спортзал",
-  "Познакомиться с девушкой",
-  "Сыграть в CS2 с друзьями",
-  "Прочитать книгу",
-  "Посмотреть новый фильм",
-  "Позвонить другу",
-  "Научиться чему-то новому"
-];
+import React, { useState, useEffect } from 'react';
+import WebApp from '@twa-dev/sdk';
 
 const App = () => {
   const [result, setResult] = useState(null);
   const [isSpinning, setIsSpinning] = useState(false);
-  const [rotation, setRotation] = useState(0);
-  const [user, setUser] = useState(null);
-
-  const [isTelegramWebApp] = useState(() => {
-    try {
-      return WebApp.platform !== undefined;
-    } catch {
-      return false;
-    }
-  });
+  const [actions] = useState([
+    "Пойти в спортзал",
+    "Познакомиться с девушкой",
+    "Сыграть в CS2 с друзьями",
+    "Прочитать книгу",
+    "Посмотреть новый фильм",
+    "Позвонить другу",
+    "Научиться чему-то новому"
+  ]);
 
   useEffect(() => {
-    try {
-      WebApp.ready();
-      if (isTelegramWebApp) {
-        document.body.style.backgroundColor = WebApp.backgroundColor;
-        document.body.style.color = WebApp.themeParams?.text_color || "#000000";
-
-        // Получаем данные пользователя
-        const telegramUser = WebApp.initDataUnsafe?.user || null;
-        setUser(telegramUser);
-      }
-    } catch (e) {
-      console.log("Not running in Telegram Web App");
-    }
-  }, [isTelegramWebApp]);
+    // Инициализация Telegram Web App
+    WebApp.ready();
+    
+    // Настраиваем основной цвет в соответствии с темой Telegram
+    document.body.style.backgroundColor = WebApp.backgroundColor;
+  }, []);
 
   const spinWheel = () => {
     if (isSpinning) return;
-
+    
     setIsSpinning(true);
-    const newRotation = rotation + 1800 + Math.random() * 360;
-    setRotation(newRotation);
-
-    let count = 0;
-    const interval = setInterval(() => {
+    setResult(null);
+    
+    // Добавляем случайную задержку для большей непредсказуемости
+    const spinDuration = 2000 + Math.random() * 1000;
+    
+    setTimeout(() => {
       const randomIndex = Math.floor(Math.random() * actions.length);
       setResult(actions[randomIndex]);
-      count++;
-
-      if (count >= 20) {
-        clearInterval(interval);
-        const finalIndex = Math.floor(Math.random() * actions.length);
-        const finalResult = actions[finalIndex];
-        setResult(finalResult);
-        setIsSpinning(false);
-
-        try {
-          if (isTelegramWebApp && WebApp.showPopup) {
-            WebApp.showPopup({
-              message: `Ваш выбор на сегодня: ${finalResult}`,
-              buttons: [{ id: "ok", type: "ok", text: "Отлично!" }]
-            });
-          }
-        } catch (e) {
-          console.log("ShowPopup not available");
-        }
-      }
-    }, 100);
-  };
-
-  const getThemeColor = (telegramColor, defaultColor) => {
-    try {
-      return isTelegramWebApp
-        ? WebApp.themeParams?.[telegramColor] || defaultColor
-        : defaultColor;
-    } catch {
-      return defaultColor;
-    }
+      setIsSpinning(false);
+      
+      // Отправляем уведомление в Telegram
+      WebApp.showPopup({
+        message: `Ваш выбор: ${actions[randomIndex]}`,
+        buttons: [{
+          type: 'ok',
+          text: 'Супер!'
+        }]
+      });
+    }, spinDuration);
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
-        padding: "20px",
-        fontFamily: "Arial, sans-serif",
-        backgroundColor: getThemeColor("bg_color", "#ffffff")
-      }}
-    >
-      {user && (
-        <div
-          style={{
-            marginBottom: "20px",
-            textAlign: "center"
-          }}
-        >
-          <h2 style={{ color: getThemeColor("text_color", "#000000") }}>
-            Привет, {user.first_name} {user.last_name || ""}!
-          </h2>
-          {user.photo_url && (
-            <img
-              src={user.photo_url}
-              alt="User Avatar"
-              style={{
-                width: "80px",
-                height: "80px",
-                borderRadius: "50%",
-                marginTop: "10px"
-              }}
-            />
+    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+      <h1 className="text-2xl font-bold mb-8">Рулетка выбора</h1>
+      
+      <div className={`relative w-64 h-64 mb-8 ${isSpinning ? 'animate-pulse' : ''}`}>
+        <div className="absolute inset-0 border-4 border-blue-500 rounded-full flex items-center justify-center">
+          {isSpinning ? (
+            <div className="text-xl">🎲</div>
+          ) : (
+            result && <p className="text-lg font-semibold p-4 text-center">{result}</p>
           )}
         </div>
-      )}
-
-      <h1
-        style={{
-          color: getThemeColor("text_color", "#000000"),
-          marginBottom: "30px",
-          fontSize: "28px"
-        }}
-      >
-        Рулетка
-      </h1>
-
-      <div
-        style={{
-          width: "280px",
-          height: "280px",
-          border: `4px solid ${getThemeColor("button_color", "#0088cc")}`,
-          borderRadius: "50%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          marginBottom: "30px",
-          padding: "20px",
-          textAlign: "center",
-          transition: "transform 1.5s cubic-bezier(0.2, 0.8, 0.3, 1)",
-          transform: `rotate(${rotation}deg)`,
-          backgroundColor: getThemeColor("secondary_bg_color", "#f0f0f0"),
-          boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
-        }}
-      >
-        <p
-          style={{
-            fontSize: "20px",
-            transform: `rotate(${-rotation}deg)`,
-            transition: "transform 1.5s cubic-bezier(0.2, 0.8, 0.3, 1)",
-            opacity: isSpinning ? 0.5 : 1
-          }}
-        >
-          {result || "Нажмите кнопку"}
-        </p>
       </div>
-
+      
       <button
         onClick={spinWheel}
         disabled={isSpinning}
-        style={{
-          backgroundColor: getThemeColor("button_color", "#0088cc"),
-          color: "#ffffff",
-          border: "none",
-          borderRadius: "10px",
-          padding: "15px 30px",
-          fontSize: "18px",
-          cursor: isSpinning ? "not-allowed" : "pointer",
-          opacity: isSpinning ? 0.7 : 1,
-          transition: "opacity 0.3s, transform 0.2s",
-          transform: "scale(1)",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
-        }}
-        onMouseDown={(e) => (e.currentTarget.style.transform = "scale(0.98)")}
-        onMouseUp={(e) => (e.currentTarget.style.transform = "scale(1)")}
-        onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+        className={`
+          px-6 py-3 rounded-lg font-bold text-white
+          ${isSpinning 
+            ? 'bg-gray-400 cursor-not-allowed' 
+            : 'bg-blue-500 hover:bg-blue-600 active:bg-blue-700'}
+          transition-colors duration-200
+        `}
       >
-        {isSpinning ? "Крутится..." : "Крутить"}
+        {isSpinning ? 'Крутится...' : 'Крутить рулетку'}
       </button>
+
+      {result && !isSpinning && (
+        <div className="mt-8 text-center">
+          <h2 className="text-xl font-semibold">Ваш выбор:</h2>
+          <p className="text-2xl font-bold text-blue-500 mt-2">{result}</p>
+        </div>
+      )}
     </div>
   );
 };
