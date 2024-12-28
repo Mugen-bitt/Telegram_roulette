@@ -26,12 +26,13 @@ const App = () => {
   useEffect(() => {
     try {
       WebApp.ready();
+      console.log("Web App API initialized");
       if (isTelegramWebApp) {
         document.body.style.backgroundColor = WebApp.backgroundColor;
         document.body.style.color = WebApp.themeParams?.text_color || '#000000';
       }
     } catch (e) {
-      console.log('Not running in Telegram Web App');
+      console.error("Telegram Web App API initialization failed:", e);
     }
   }, [isTelegramWebApp]);
 
@@ -123,8 +124,7 @@ const App = () => {
           {result || "Нажмите кнопку"}
         </p>
       </div>
-
-      <button
+<button
         onClick={spinWheel}
         disabled={isSpinning}
         style={{
