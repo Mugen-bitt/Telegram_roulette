@@ -9,6 +9,7 @@
     "@ethereumjs/vm": "^8.1.1",
     "@twa-dev/sdk": "^8.0.1",
     "@walletconnect/client": "^1.8.0",
+    "@walletconnect/qrcode-modal": "^1.8.0",
     "@walletconnect/types": "^2.17.3",
     "axios": "^1.7.9",
     "cra-template": "1.2.0",
