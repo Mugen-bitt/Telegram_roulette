@@ -6,7 +6,6 @@ const bot = new Telegraf('7932492596:AAGSqGbzYKs3_tInoDWrXGwNbNcLcNw0MzA');
 
 // Команда /start
 bot.start((ctx) => {
-  ctx.reply('Привет! Я ваш первый бот 🚀');
   ctx.reply('Нажми кнопку:', {
     reply_markup: {
       inline_keyboard: [
