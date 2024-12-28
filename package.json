@@ -1,20 +1,23 @@
 {
-  "homepage": "https://Mugen-bitt.github.io/Telegram_roulette",
+  "homepage": "https://mugen-bitt.github.io/Telegram_roulette",
   "name": "roulette-web3",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@twa-dev/sdk": "^8.0.1",
     "cra-template": "1.2.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^4.2.4"
+    "node-telegram-bot-api": "^0.66.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1",
+    "web-vitals": "^4.2.4",
+    "web3": "^4.16.0"
   },
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build --no-source-maps",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
