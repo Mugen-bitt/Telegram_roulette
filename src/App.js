@@ -105,7 +105,7 @@ const App = () => {
         marginBottom: "30px",
         fontSize: "28px"
       }}>
-        Рулетка действий
+        Рулетка
       </h1>
 
       <div style={{
